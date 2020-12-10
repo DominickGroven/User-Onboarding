@@ -5,6 +5,7 @@ import * as yup from 'yup'
 import axios from 'axios'
 
 
+
 const schema = yup.object().shape({
     user: yup.string().required('Name is Required!'),
     email: yup.string().required('Email is Required!'),
@@ -38,14 +39,15 @@ const setFormErrors = (name, value) => {
     }, [form])
 
     const submit = event => {
-        event.preventDefault()
+        
         const newUser= {user: form.user.trim(), user: form.user, email: form.email, passowrd: form.password}
         axios.post('https://reqres.in/api/users', newUser)
         .then(res=> {
             setForm({ user: '', email: '', password: '', agree: false})
-
-        })
+            console.log('Form Submitted!', res)
+                   })
         .catch(err =>{
+            console.log(err.response)
 
         })
     }
@@ -77,9 +79,10 @@ const setFormErrors = (name, value) => {
                     Submit
                 </button>
 
-
             </form>
+            
         </div>
+
     )
 }
 
